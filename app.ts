@@ -1,84 +1,67 @@
 let word: string = '';
-let worddspl: string='';
-let i:number = 1;
+let wordDisplay: string = '';
+let numberOfGuesses: number = 1;
 $(document).ready(function() {
 
-    let guess: number = Math.floor(Math.random()*9.999);
+  let words = ['grandmother', 'conditioner', 'neighbour', 'university', 'furniture', 'basketball', 'refridgerator', 'mathematics', 'astronomy', 'sausage', 'codercamps'];
+  let idx: number = Math.floor(Math.random() * words.length);
 
-    switch (guess) {
-    case 0:
-        word = 'grandmother';
-        break;
-    case 1:
-        word = 'conditioner';
-        break;
-    case 2:
-        word = 'neighbour';
-        break;
-    case 3:
-        word = 'university';
-        break;
-    case 4:
-        word = 'furniture';
-        break;
-    case 5:
-        word = 'basketball';
-        break;
-    case 6:
-        word = 'refridgerator';
-        break;
-    case 7:
-        word = 'mathematics';
-        break;
-    case 8:
-        word = 'astronomy';
-        break;
-    case 9:
-        word = 'sausage';
-        break;
-    }
-    for (let ii:number=0;ii<word.length;ii++) {worddspl +='_'};
-    $('#display1').html('<h4> '+worddspl+' </h4>');
+  word = words[idx];
 
+  for (let i: number = 0; i < word.length; i++) {
+    wordDisplay += '_';
+  }
+  $('#display1').html('<h4> ' + wordDisplay + ' </h4>');
+
+  $('#submit').on('click', function() {
+    let guess: string = $('#userLetter').val();
+    makeGuess(guess);
+  });
 });
 
-function startGame() {
-    let completeWord: boolean = false;
-    let lttr: string = $('#userLetter').val();
-    var m:number = word.indexOf(lttr);
-    if (i<6) {
-        if (lttr==word) {
-            completeWord=true;
-            worddspl=word;
-            $('#display2').html('<label style="color:red">Congratulations! You won! </label>');
-        } else if (m<0 || lttr.length==0) {
-            $('#image').html('<img src="0'+i.toString()+'.PNG">');
-            i++;
-            $('#userLabel').html('<label> Make word or letter guess #'+i.toString()+' (6 max)</label>');
-        } else {
-            for (let j=0;j<word.length;j++)  {
-                if (lttr==word.substr(j,1)) {
-                    worddspl=setCharAt(worddspl,j,lttr);
-                }
-            }
+function makeGuess(guess: string) {
+
+  if (guess.length !== 0) {
+    if (numberOfGuesses < 6) {
+
+      let idx: number = word.indexOf(guess);
+
+      if (guess == word) { // the user can finish the word
+        wordDisplay = word;
+        setWinOrLose('Congratulations! You won!');
+      }
+      else if (idx < 0) { // the letter wansn't in the word
+        setImage(numberOfGuesses++);
+        $('#numberOfGuesses').text(numberOfGuesses);
+      }
+      else {             // the letter is in the word
+        while(idx >= 0) {
+          wordDisplay = wordDisplay.substring(0, idx) + guess + wordDisplay.substr(idx + 1);
+          idx = word.indexOf(guess, idx + 1);
         }
-    } else {
-        $('#display2').html('<h2 style="color:red">Game Over! You lost! </h2>');
-        $('#image').html('<img src="0'+i.toString()+'.PNG">');
+      }
     }
-    if (worddspl.indexOf('_')==-1) {
-        completeWord=true;
-        $('#display2').html('<h2 style="color:red">Congratulations! You won! </h2>');
+    else {
+      setWinOrLose('Game Over! You lost!');
+      setImage(numberOfGuesses);
     }
-    $('#display1').html('<h3> '+worddspl+' </h3>');
-    clearInput();
+  }
+
+  if (wordDisplay === word) {
+    setWinOrLose('Congratulations! You won!');
+  }
+  $('#display1').html(wordDisplay);
+  clearInput();
 }
 
-function setCharAt(string1:string,i:number,char:string) {
-	if(i > string1.length-1) return string1;
-	return string1.substr(0,i) + char + string1.substr(i+1);
+function setWinOrLose(message:string) {
+  $('#display2').text(message);
+}
+
+function setImage(num:number) {
+  $('#image').attr('src', '0' + num + '.png');
 }
 
 function clearInput() {
-    $('#userLetter').val('');
+  $('#userLetter').val('');
 }
