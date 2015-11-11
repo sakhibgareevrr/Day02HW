@@ -40,7 +40,6 @@ $(document).ready(function () {
     }
     ;
     $('#display1').html('<h4> ' + worddspl + ' </h4>');
-    console.log(word);
 });
 function startGame() {
     var completeWord = false;

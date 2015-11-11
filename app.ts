@@ -1,5 +1,5 @@
 let word: string = '';
-let worddspl='';
+let worddspl: string='';
 let i:number = 1;
 $(document).ready(function() {
 
@@ -37,9 +37,9 @@ $(document).ready(function() {
         word = 'sausage';
         break;
     }
-    for (let ii=0;ii<word.length;ii++) {worddspl +='_'};
+    for (let ii:number=0;ii<word.length;ii++) {worddspl +='_'};
     $('#display1').html('<h4> '+worddspl+' </h4>');
-    console.log(word);
+
 });
 
 function startGame() {
