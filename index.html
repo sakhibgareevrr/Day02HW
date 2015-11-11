@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <!--Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="app.js"></script>
+    </head>
+    <body>
+        <!--Homework exercise of Day 1 at Coder Camp-->
+        <div class="container">
+            <div class="row">
+                <div style="text-align:center" class="col-md-3 col-md-offset-4">
+                    <div class="form-group">
+                        <h1>Hangman Game</h1>
+                        <p>
+                            <h4><a href="index.html">Start Over</a></h4>
+                        </p>
+                        <div id="userLabel">
+                            <h4 for="">Make letter guess #1 (6 max)</h4>
+                        </div>
+                        <input type="text" id="userLetter" name="name" value="" class="form-control">
+                        <br>
+
+                        <input type="button" onclick="startGame()" name="name" class="btn btn-primary btn-block" value="Enter" class="form-control">
+                        <br>
+                        <div id="display1">
+
+                        </div>
+
+                        <div id="display2">
+
+                        </div>
+                        <br>
+                        <div id="image">
+                            <img src="00.PNG">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
